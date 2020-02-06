@@ -1,4 +1,4 @@
-<?php $this->load->view('templates/header_static'); ?>
+<?php $this->load->view('templates/header_static_login'); ?>
 
 <form method="POST" class="form-signin" action="<?php echo site_url('Login/process'); ?>">
 
