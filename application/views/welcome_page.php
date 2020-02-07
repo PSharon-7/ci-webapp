@@ -7,7 +7,10 @@
     Welcome 
     <?php echo $this->session->userdata('user'); ?>   
 <br>  
-    <?php echo anchor('Login/logout', 'Logout'); ?>  
+    <?php echo anchor('Login/logout', 'Logout'); ?> 
+
+
+    <?php echo $this->session->userdata('remember'); ?> 
   
   
 </body>  

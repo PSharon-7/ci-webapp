@@ -5,13 +5,33 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('login_page');
+        // Retrieve session data
+        $session_set_value = $this->session->all_userdata();
+
+        // echo $session_set_value;
+
+        // Check for remember_me data in retrieved session data
+        if (isset($session_set_value['remember_me'])) 
+        {
+             //declaring session  
+            $this->load->library('session');
+            $this->session->set_userdata(array('user'=>$session_set_value['remember_me']));  
+            $this->load->view('welcome_page');
+        } 
+        else
+        {
+            $this->load->view('login_page');
+        }
 	}
 
     public function process()  
     {  
         $user = $this->input->post('user');  
         $pass = $this->input->post('pass');
+        $remember = $this->input->post('remember_me');
+;
+
+
 
         $this->db->where('account_id', $user);  
         $this->db->where('passcode', $pass);  
@@ -19,9 +39,21 @@ class Login extends CI_Controller {
   
         if ($query->num_rows() == 1)
         {  
+            
+            // $remember = true;
+            if($remember==="1")
+            {
+                echo "bad sesame";
+                $this->session->set_userdata(array('remember_me'=>$user));  
+            }
+            else
+            {
+                $this->session->unset_userdata('remember_me'); 
+            }
+
              //declaring session  
             $this->load->library('session');
-            $this->session->set_userdata(array('user'=>$user));  
+            $this->session->set_userdata(array('user'=>$remember));  
             $this->load->view('welcome_page');          
         } 
         else
@@ -37,7 +69,9 @@ class Login extends CI_Controller {
     {  
         //removing session
         $this->load->library('session'); 
-        $this->session->unset_userdata('user');  
+        $this->session->unset_userdata('user'); 
+        $this->session->unset_userdata('remember_me');  
+
         redirect("Login");  
     }  
 
