@@ -55,5 +55,15 @@ $route['info'] = 'UserInfo';
 $route['consult'] = 'Consulting';
 $route['dynamics'] = 'Dynamics';
 
+
+$route['login'] = 'Login';
+$route['logout'] = 'Login/logout';
+$route['login/process'] = 'Login/process';
+
+$route['pnscreening'] = 'PNScreeningDoc';
+$route['patientmanager'] = 'PatientManager';
+$route['consulting_doctor'] = 'ConsultingDoc';
+
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

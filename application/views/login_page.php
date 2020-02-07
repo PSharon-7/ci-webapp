@@ -8,7 +8,7 @@
 
 <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
-        <form class="col-10" method="POST" action="<?php echo site_url('Login/process'); ?>">
+        <form class="col-10" method="POST" action="<?php echo base_url().'login/process'; ?>">
 
         	<h1 class="h3 mb-3 font-weight-normal">邵阳市中心医院</h1>
 

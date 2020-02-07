@@ -11,8 +11,8 @@ class Login extends CI_Controller {
         // Check for remember_me data in retrieved session data
         if (isset($session_set_value['remember_me'])) 
         {
-            $this->session->set_userdata(array('user'=>$session_set_value['remember_me']));  
-            $this->load->view('welcome_page');
+            $this->session->set_userdata(array('user'=>$session_set_value['remember_me']));
+            redirect(base_url().'pnscreening');  
         } 
         else
         {
@@ -32,10 +32,8 @@ class Login extends CI_Controller {
   
         if ($query->num_rows() == 1)
         {  
-            // $remember = true;
             if($remember==="1")
             {
-                echo "bad sesame";
                 $this->session->set_userdata(array('remember_me'=>$user));  
             }
             else
@@ -43,9 +41,9 @@ class Login extends CI_Controller {
                 $this->session->unset_userdata('remember_me'); 
             }
 
-             //declaring session  
-            $this->session->set_userdata(array('user'=>$remember));  
-            $this->load->view('welcome_page');          
+            $this->session->set_userdata(array('user'=>$user));
+
+            redirect(base_url().'pnscreening');  
         } 
         else
         {  
@@ -62,7 +60,7 @@ class Login extends CI_Controller {
         $this->session->unset_userdata('user'); 
         $this->session->unset_userdata('remember_me');  
 
-        redirect("Login");  
+        redirect(base_url().'login');  
     }  
 
 }
