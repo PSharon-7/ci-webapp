@@ -8,13 +8,9 @@ class Login extends CI_Controller {
         // Retrieve session data
         $session_set_value = $this->session->all_userdata();
 
-        // echo $session_set_value;
-
         // Check for remember_me data in retrieved session data
         if (isset($session_set_value['remember_me'])) 
         {
-             //declaring session  
-            $this->load->library('session');
             $this->session->set_userdata(array('user'=>$session_set_value['remember_me']));  
             $this->load->view('welcome_page');
         } 
@@ -29,17 +25,13 @@ class Login extends CI_Controller {
         $user = $this->input->post('user');  
         $pass = $this->input->post('pass');
         $remember = $this->input->post('remember_me');
-;
-
-
 
         $this->db->where('account_id', $user);  
         $this->db->where('passcode', $pass);  
-        $query = $this->db->get('Account'); 
+        $query = $this->db->get('account'); 
   
         if ($query->num_rows() == 1)
         {  
-            
             // $remember = true;
             if($remember==="1")
             {
@@ -52,7 +44,6 @@ class Login extends CI_Controller {
             }
 
              //declaring session  
-            $this->load->library('session');
             $this->session->set_userdata(array('user'=>$remember));  
             $this->load->view('welcome_page');          
         } 
@@ -68,7 +59,6 @@ class Login extends CI_Controller {
     public function logout()  
     {  
         //removing session
-        $this->load->library('session'); 
         $this->session->unset_userdata('user'); 
         $this->session->unset_userdata('remember_me');  
 

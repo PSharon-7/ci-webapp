@@ -12,6 +12,5 @@
 
     <?php echo $this->session->userdata('remember'); ?> 
   
-  
 </body>  
 </html>  
