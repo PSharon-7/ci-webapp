@@ -18,13 +18,7 @@
         	<label for="user" class="sr-only">密码</label>
         	<input type="password" name="pass" class="form-control" placeholder="密码" required>
 
-        	<div class="checkbox mb-3">
-                <label>
-                	<input type="checkbox" name="remember_me" value="1"> 下次自动登录
-                </label>
-        	</div>
-
-        	<button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+        	<button class="btn btn-lg btn-primary btn-block mt-4" type="submit">登陆</button>
         </form>
     </div>
 </div>

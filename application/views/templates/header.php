@@ -17,7 +17,7 @@
         </div>
         <ul class="nav nav-pills nav-justified bg-dark mb-3">
             <li class="nav-item">
-                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == '') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>">结节筛查</a>
+                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'pnscreening') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>pnscreening">结节筛查</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'info') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>info">个人信息</a>

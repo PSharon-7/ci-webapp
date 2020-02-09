@@ -21,7 +21,6 @@ class Login extends CI_Controller {
     {  
         $user = $this->input->post('user');  
         $pass = $this->input->post('pass');
-        $remember = $this->input->post('remember_me');
 
         $query = $this->db->get_where('account', array('account_id' => $user, 'passcode' => $pass)); 
 
@@ -33,18 +32,11 @@ class Login extends CI_Controller {
                 'id' => $user,
                 'name' => $data->name,
                 'role' => 'Doctor',
-                'logged_in' => 'TRUE',
-                'remember_me' => 'FALSE'
+                'logged_in' => 'TRUE'
             ];
 
-            if($remember==="1")
-            {
-                $userdata->remember_me = 'TRUE';
-                $this->session->set_userdata('User', $userdata);  
-            }
-
             $this->session->set_userdata('User', $userdata); 
-            redirect(base_url().'pnscreening');  
+            redirect(base_url().'pnscreening_doctor');
         } 
         else
         {  
