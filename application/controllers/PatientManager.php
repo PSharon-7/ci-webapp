@@ -7,11 +7,9 @@ class PatientManager extends CI_Controller {
     {
         // Retrieve session data
         $session_set_value = $this->session->all_userdata();
-
-        // Check for remember_me data in retrieved session data
-        if (isset($session_set_value['remember_me'])) 
+        
+        if (isset($session_set_value['User']) && $session_set_value['User']['role'] == 'Doctor' && $session_set_value['User']['logged_in'] == 'TRUE')
         {
-            $this->session->set_userdata(array('user'=>$session_set_value['remember_me']));  
             $this->load->view('patient_manager');
         } 
         else

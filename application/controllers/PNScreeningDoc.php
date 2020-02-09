@@ -5,12 +5,10 @@ class PNScreeningDoc extends CI_Controller {
 
     public function index()
     {
-
         // Retrieve session data
         $session_set_value = $this->session->all_userdata();
-
-        // Check for remember_me data in retrieved session data
-        if (isset($session_set_value['user'])) 
+        
+        if (isset($session_set_value['User']) && $session_set_value['User']['role'] == 'Doctor' && $session_set_value['User']['logged_in'] == 'TRUE')
         {
             $this->load->view('pnscreening_doctor');
         } 
@@ -18,6 +16,5 @@ class PNScreeningDoc extends CI_Controller {
         {
             redirect(base_url().'login');
         }
-
     }
 }

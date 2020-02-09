@@ -5,14 +5,11 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-        // Retrieve session data
         $session_set_value = $this->session->all_userdata();
 
-        // Check for remember_me data in retrieved session data
-        if (isset($session_set_value['remember_me'])) 
+        if (isset($session_set_value['User']) && $session_set_value['User']['role'] == 'Doctor' && $session_set_value['User']['logged_in'] == 'TRUE')
         {
-            $this->session->set_userdata(array('user'=>$session_set_value['remember_me']));
-            redirect(base_url().'pnscreening');  
+            redirect(base_url().'pnscreening');
         } 
         else
         {
@@ -26,30 +23,32 @@ class Login extends CI_Controller {
         $pass = $this->input->post('pass');
         $remember = $this->input->post('remember_me');
 
-        $this->db->where('account_id', $user);  
-        $this->db->where('passcode', $pass);  
-        $query = $this->db->get('account'); 
-  
+        $query = $this->db->get_where('account', array('account_id' => $user, 'passcode' => $pass)); 
+
         if ($query->num_rows() == 1)
         {  
+
+            $data = $query->row();
+            $userdata = [
+                'id' => $user,
+                'name' => $data->name,
+                'role' => 'Doctor',
+                'logged_in' => 'TRUE',
+                'remember_me' => 'FALSE'
+            ];
+
             if($remember==="1")
             {
-                $this->session->set_userdata(array('remember_me'=>$user));  
-            }
-            else
-            {
-                $this->session->unset_userdata('remember_me'); 
+                $userdata->remember_me = 'TRUE';
+                $this->session->set_userdata('User', $userdata);  
             }
 
-            $this->session->set_userdata(array('user'=>$user));
-
+            $this->session->set_userdata('User', $userdata); 
             redirect(base_url().'pnscreening');  
         } 
         else
         {  
-            $data['error'] = 'Your Account is Invalid';  
             $this->load->view('login_page');           
-             
         }     
 
     }  
@@ -57,8 +56,7 @@ class Login extends CI_Controller {
     public function logout()  
     {  
         //removing session
-        $this->session->unset_userdata('user'); 
-        $this->session->unset_userdata('remember_me');  
+        $this->session->unset_userdata('User'); 
 
         redirect(base_url().'login');  
     }  
