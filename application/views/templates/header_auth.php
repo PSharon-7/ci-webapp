@@ -33,7 +33,7 @@
         </div>
         <ul class="nav nav-pills nav-justified bg-dark mb-3">
             <li class="nav-item">
-                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'pnscreening') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>pnscreening">结节筛查</a>
+                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'pnscreening_doctor') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>pnscreening_doctor">结节筛查</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'patientmanager') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>patientmanager" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">患者管理</a>

@@ -9,7 +9,7 @@ class Login extends CI_Controller {
 
         if (isset($session_set_value['User']) && $session_set_value['User']['role'] == 'Doctor' && $session_set_value['User']['logged_in'] == 'TRUE')
         {
-            redirect(base_url().'pnscreening');
+            redirect(base_url().'pnscreening_doctor');
         } 
         else
         {

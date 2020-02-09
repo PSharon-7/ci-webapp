@@ -50,17 +50,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-$route['default_controller'] = 'PNScreening';
+$route['default_controller'] = 'Welcome';
+
+$route['pnscreening'] = 'PNScreening';
 $route['info'] = 'UserInfo';
 $route['consult'] = 'Consulting';
 $route['dynamics'] = 'Dynamics';
-
 
 $route['login'] = 'Login';
 $route['logout'] = 'Login/logout';
 $route['login/process'] = 'Login/process';
 
-$route['pnscreening'] = 'PNScreeningDoc';
+$route['pnscreening_doctor'] = 'PNScreeningDoc';
 $route['patientmanager'] = 'PatientManager';
 $route['consulting_doctor'] = 'ConsultingDoc';
 
