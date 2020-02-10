@@ -22,7 +22,7 @@ class Login extends CI_Controller {
         $user = $this->input->post('user');  
         $pass = $this->input->post('pass');
 
-        $query = $this->db->get_where('account', array('account_id' => $user, 'passcode' => $pass)); 
+        $query = $this->db->get_where('doctor_account', array('account_id' => $user, 'passcode' => $pass)); 
 
         if ($query->num_rows() == 1)
         {  

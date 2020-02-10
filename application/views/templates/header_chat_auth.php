@@ -5,15 +5,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Style Sheet -->
+        <!-- Bootstrap 3.3.7 -->
         <link rel="stylesheet" href="<?=base_url('assets')?>/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="<?=base_url('assets')?>/components/font-awesome/css/font-awesome.min.css">
-
-
-        <title><?php echo isset($title)? $title : "邵阳市中心医院心胸外科" ?></title>
+        <link rel="stylesheet" href="<?=base_url('assets')?>/css/font-awesome.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="<?=base_url('assets')?>/css/AdminLTE.min.css">
 
         <style>
+            body {
+                background-color: #ecf0f5;
+            }
+
             #logout {
                 position: absolute;
                 top: 0;

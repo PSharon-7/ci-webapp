@@ -1,4 +1,4 @@
-<?php $this->load->view('templates/header_form'); ?>
+<?php $this->load->view('templates/header'); ?>
 
 <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
 <form action="" method="post">

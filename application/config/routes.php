@@ -63,8 +63,12 @@ $route['login/process'] = 'Login/process';
 
 $route['pnscreening_doctor'] = 'PNScreeningDoc';
 $route['patientmanager'] = 'PatientManager';
-$route['consulting_doctor'] = 'ConsultingDoc';
+$route['consulting_doctor'] = 'Consulting';
 
+
+$route['send-message'] = 'Consulting/send_text_message';
+$route['chat-attachment/upload'] = 'Consulting/send_text_message';
+$route['get-chat-history'] = 'Consulting/get_chat_history';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
