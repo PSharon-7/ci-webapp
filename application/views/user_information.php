@@ -21,7 +21,7 @@
             echo '<div class="text-center"><button class="btn btn-primary" name="submit">提交</button><hr><p>已提交，等待医生审核。</p></div>';
         } 
         else {
-            echo '<div class="row d-flex justify-content-center"><p>医生已审核</p></div>';
+            echo '<div class="row d-flex justify-content-center text-success"><p>医生已审核</p></div>';
         } 
         ?>
             

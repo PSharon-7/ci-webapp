@@ -86,6 +86,17 @@
         <div class="d-flex justify-content-center">
             <button class="btn btn-primary" name="submit">提交</button>
         </div>
+
+        <hr>
+
+        <?php 
+        if ($doctor_checked_already == 0) {
+            echo '<div class="text-center text-danger"><p>已提交，等待医生审核。</p></div>';
+        }
+        elseif ($doctor_checked_already == 1) {
+            echo '<div class="text-center text-success"><p>医生已审核, 请及时查看推送</p></div>';
+        } 
+        ?>
     </div>
 </form>
 

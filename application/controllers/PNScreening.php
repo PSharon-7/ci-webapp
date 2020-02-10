@@ -10,6 +10,7 @@ class PNScreening extends CI_Controller {
         $wxid = "mock1";
 
         $id = $name = $gender = $age = $smokehistory = $address = $phonenumber = $resulttime = $pnposition = $pncontent = $pnsize = $doctor = $checktime = $checkhospital = "";
+        $doctor_checked_already = -1;
 
         $query = $this->db->get_where('pnctscreen', array('wxid' => $wxid)); 
 
@@ -22,13 +23,14 @@ class PNScreening extends CI_Controller {
             $smokehistory = $data->smokehistory;
             $address = $data->address;
             $phonenumber = $data->phonenumber;
-            $resulttime = gmdate('yy-m-d', strtotime($data->resulttime));
+            $resulttime = $data->resulttime;
             $pnposition = $data->pnposition;
             $pncontent = $data->pncontent;
             $pnsize = $data->pnsize;
             $doctor = $data->doctor;
-            $checktime = gmdate('yy-m-d', strtotime($data->checktime));
+            $checktime = $data->checktime;
             $checkhospital = $data->checkhospital;
+            $doctor_checked_already = $data->doctor_checked_already;
         }
 
         $form_data['id'] = $id;
@@ -45,6 +47,7 @@ class PNScreening extends CI_Controller {
         $form_data['doctor'] = $doctor;
         $form_data['checktime'] = $checktime;
         $form_data['checkhospital'] = $checkhospital;
+        $form_data['doctor_checked_already'] = $doctor_checked_already;
 
         $this->form_validation->set_rules(
             'id', '身份证号',
@@ -95,15 +98,11 @@ class PNScreening extends CI_Controller {
                 'pnsize' => $pnsize,
                 'doctor' => $doctor,
                 'checktime' => $checktime,
-                'checkhospital' => $checkhospital
+                'checkhospital' => $checkhospital,
+                'doctor_checked_already' => 0
             );
 
-            //check user in database
-            if($query->num_rows() == 0){
-                $this->db->insert('pnctscreen', $data);
-            } else{
-                $this->db->replace('pnctscreen', $data);
-            }
+            $this->db->replace('pnctscreen', $data);
 
             redirect("/", "refresh");
         }
@@ -113,7 +112,7 @@ class PNScreening extends CI_Controller {
 
     public function id_check()
     {
-        $wxid = "mock0";
+        $wxid = "mock1";
 
         $id = $_POST['id'];
         $query_id = $this->db->get_where('pnctscreen', array('id' => $id)); 

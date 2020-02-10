@@ -83,10 +83,15 @@
             <input class="form-control" name="checkhospital" type="text" value="<?php echo isset($_POST['checkhospital'])? $_POST['checkhospital'] : $checkhospital; ?>" required>
         </div>
 
+        <!-- TODO -->
+        <!-- 添加推送字段 -->
+
         <div class="d-flex justify-content-center">
-            <button class="btn btn-primary" name="submit">审核通过</button>
+            <button class="btn btn-primary" name="submit">提交审核</button>
         </div>
     </div>
 </form>
+
+<div class="my-4"></div>
 
 <?php $this->load->view('templates/footer'); ?>

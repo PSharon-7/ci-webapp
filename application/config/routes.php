@@ -66,7 +66,8 @@ $route['patientmanager'] = 'PatientManager';
 $route['consulting_doctor'] = 'Consulting';
 
 
-$route['pnscreening_doctor_comment'] = 'PNScreeningDocCmt';
+$route['pnscreening_doctor'] = 'PNScreeningDoc';
+$route['pnscreening_doctor/(:any)'] = 'PNScreeningDoc/comment/$1';
 
 $route['send-message'] = 'Consulting/send_text_message';
 $route['chat-attachment/upload'] = 'Consulting/send_text_message';
