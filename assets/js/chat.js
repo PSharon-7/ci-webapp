@@ -48,7 +48,6 @@ $('.upload_attachmentfile').change(function(){
 	});
 
 });
- 
 
 });	///end of jquery
 
@@ -135,7 +134,7 @@ function GetChatHistory(receiver_id){
     });
 }
 
-// setInterval(function(){ 
-// 	var receiver_id = $('#ReciverId_txt').val();
-// 	if(receiver_id!=''){ GetChatHistory(receiver_id); }
-// }, 3000);
+setInterval(function(){ 
+	var receiver_id = $('#ReciverId_txt').val();
+	if(receiver_id!=''){ GetChatHistory(receiver_id); }
+}, 3000);
