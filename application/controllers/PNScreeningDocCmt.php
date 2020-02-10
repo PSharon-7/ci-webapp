@@ -1,19 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PNScreening extends CI_Controller {
+class PNScreeningDocCmt extends CI_Controller {
 
     public function index()
     {
-
         // TODO: add wxid
-        $wxid = "mock1";
+
+        
+        $wxid = $this->input->get('wxid', TRUE);
+
 
         $id = $name = $gender = $age = $smokehistory = $address = $phonenumber = $resulttime = $pnposition = $pncontent = $pnsize = $doctor = $checktime = $checkhospital = "";
 
         $query = $this->db->get_where('pnctscreen', array('wxid' => $wxid)); 
 
-        if ($query->num_rows() > 0) {
+
+        if ($query->num_rows() > 0) { 
             $data = $query->row();
             $id = $data->id;
             $name = $data->name;
@@ -29,6 +32,7 @@ class PNScreening extends CI_Controller {
             $doctor = $data->doctor;
             $checktime = gmdate('yy-m-d', strtotime($data->checktime));
             $checkhospital = $data->checkhospital;
+
         }
 
         $form_data['id'] = $id;
@@ -46,13 +50,13 @@ class PNScreening extends CI_Controller {
         $form_data['checktime'] = $checktime;
         $form_data['checkhospital'] = $checkhospital;
 
-        $this->form_validation->set_rules(
-            'id', '身份证号',
-            'callback_id_check',
-            array(
-                'callback_id_check' =>  '该身份证已注册'
-            )
-        );
+        // $this->form_validation->set_rules(
+        //     'id', '身份证号',
+        //     'callback_id_check',
+        //     array(
+        //         'callback_id_check' =>  '该身份证已注册'
+        //     )
+        // );
 
         $this->form_validation->set_rules(
             'phonenumber', '电话号码',
@@ -105,10 +109,11 @@ class PNScreening extends CI_Controller {
                 $this->db->replace('pnctscreen', $data);
             }
 
-            redirect("/", "refresh");
+            redirect(base_url().'pnscreening_doctor');
+            // redirect("/", "refresh");
         }
         
-        $this->load->view('pnscreening_form', $form_data);
+        $this->load->view('pnscreening_form_cmt', $form_data);
     }
 
     public function id_check()
