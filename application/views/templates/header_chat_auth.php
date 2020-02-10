@@ -12,6 +12,7 @@
         <!-- Theme style -->
         <link rel="stylesheet" href="<?=base_url('assets')?>/css/AdminLTE.min.css">
 
+        <title><?php echo isset($title)? $title : "邵阳市中心医院心胸外科" ?></title>
         <style>
             body {
                 background-color: #ecf0f5;
