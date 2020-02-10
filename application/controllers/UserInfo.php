@@ -47,12 +47,7 @@ class UserInfo extends CI_Controller {
                 'doctorcheck' => 0
             );
 
-            //check user in database
-            if($query->num_rows() == 0) {
-                $this->db->insert('patientinfo', $data);
-            } else {
-                $this->db->replace('patientinfo', $data);
-            }
+            $this->db->replace('patientinfo', $data);
 
             redirect("/info", "refresh"); 
         }   
