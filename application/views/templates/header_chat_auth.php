@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap 3.3.7 -->
-        <link rel="stylesheet" href="<?=base_url('assets')?>/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="<?=base_url('assets')?>/css/bootstrap.min.css">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="<?=base_url('assets')?>/css/font-awesome.min.css">
+        <link rel="stylesheet" href="<?=base_url('assets')?>/components/font-awesome/css/font-awesome.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="<?=base_url('assets')?>/css/AdminLTE.min.css">
 
@@ -17,20 +17,45 @@
             body {
                 background-color: #ecf0f5;
             }
-
             #logout {
                 position: absolute;
                 top: 0;
                 right: 0;
             }
-
             .nav-pills .show>.nav-link{
                 background-color: #282d31;
             }
+            .fileDiv {
+                position: relative;
+                overflow: hidden;
+            }
+            .upload_attachmentfile {
+                position: absolute;
+                opacity: 0;
+                right: 0;
+                top: 0;
+            }
+            .btnFileOpen {margin-top: -50px; }
+
+            .direct-chat-warning .right>.direct-chat-text {
+                background: #d2d6de;
+                border-color: #d2d6de;
+                color: #444;
+                text-align: right;
+            }
+            .direct-chat-primary .right>.direct-chat-text {
+                background: #3c8dbc;
+                border-color: #3c8dbc;
+                color: #fff;
+                text-align: right;
+            }
+            .spiner{}
+            .spiner .fa-spin { font-size:24px;}
+            .attachmentImgCls{ width:450px; margin-left: -25px; cursor:pointer; }
         </style>
     </head>
 
-    <body>
+    <body class="hold-transition skin-blue sidebar-mini">
         <div class="d-flex justify-content-end">
             <a type="button" class="btn btn-light btn-sm" id="logout" href="<?php echo base_url(); ?>logout">登出</a>
         </div>

@@ -17,9 +17,38 @@
             body {
                 background-color: #ecf0f5;
             }
+            .fileDiv {
+                position: relative;
+                overflow: hidden;
+            }
+            .upload_attachmentfile {
+                position: absolute;
+                opacity: 0;
+                right: 0;
+                top: 0;
+            }
+            .btnFileOpen {margin-top: -50px; }
+
+            .direct-chat-warning .right>.direct-chat-text {
+                background: #d2d6de;
+                border-color: #d2d6de;
+                color: #444;
+                text-align: right;
+            }
+            .direct-chat-primary .right>.direct-chat-text {
+                background: #3c8dbc;
+                border-color: #3c8dbc;
+                color: #fff;
+                text-align: right;
+            }
+            .spiner{}
+            .spiner .fa-spin { font-size:24px;}
+            .attachmentImgCls{ width:450px; margin-left: -25px; cursor:pointer; }
         </style>
-  </head>
-  <body>
+    </head>
+
+  
+    <body class="hold-transition skin-blue sidebar-mini">
         <div alt="top photo">
             <img src="<?php echo base_url(); ?>assets/images/hospital.jpeg" class="w-100">
         </div>
