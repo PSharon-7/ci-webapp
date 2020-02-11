@@ -13,7 +13,7 @@
         <script>
             FontAwesomeConfig = { searchPseudoElements: true };
         </script>
-        <script src="<?=base_url('assets')?>/components/font-awesome/js/all.min.js"></script>
+        <script src="<?=base_url('assets')?>/components/font-awesome/js/all.js"></script>
 
         <title><?php echo isset($title)? $title : "邵阳市中心医院心胸外科" ?></title>
 
@@ -27,6 +27,7 @@
             .nav-pills .show>.nav-link{
                 background-color: #282d31;
             }
+
             body {
                 font: 90%/1.45em "Helvetica Neue", HelveticaNeue, Verdana, Arial, Helvetica, sans-serif;
                 margin: 0;
