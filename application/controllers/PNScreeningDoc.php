@@ -10,10 +10,8 @@ class PNScreeningDoc extends CI_Controller {
         
         if (isset($session_set_value['User']) && $session_set_value['User']['role'] == 'Doctor' && $session_set_value['User']['logged_in'] == 'TRUE')
         {
-            
             $this->load->library('table');
             $this->load->view('pnscreening_doctor');
-
         } 
         else
         {

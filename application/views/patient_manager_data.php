@@ -36,7 +36,7 @@
         rows[i].onclick = function()
         {
             var id = this.childNodes[2].innerHTML;
-            window.location = 'patientmanager/checkin/'+ id;
+            window.location = '<?php echo base_url()?>patientmanager/data/'+ id;
         }; 
     }
 

@@ -1,7 +1,7 @@
 <?php $this->load->view('templates/header_auth'); ?>
 
 <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
-<form action="" method="post">
+<form class="mt-3" action="" method="post">
     <div class="container">
         <div class="form-group">
             <label for="id">身份证号</label>

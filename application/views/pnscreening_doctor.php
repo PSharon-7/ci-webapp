@@ -1,6 +1,6 @@
 <?php $this->load->view('templates/header_auth'); ?>
 
-<div class="container">
+<div class="container mt-3">
 	<h4 class="pb-2 font-italic border-bottom text-danger">未审核</h4>
 <?php
 	$template = array

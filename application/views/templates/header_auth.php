@@ -101,16 +101,16 @@
         <div alt="top photo">
             <img src="<?php echo base_url(); ?>assets/images/hospital.jpeg" class="w-100">
         </div>
-        <ul class="nav nav-pills nav-justified bg-dark mb-3">
+        <ul class="nav nav-pills nav-justified bg-dark">
             <li class="nav-item">
                 <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->segment(1) == 'pnscreening_doctor') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>pnscreening_doctor">结节筛查</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'patientmanager') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>patientmanager" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">患者管理</a>
+                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->segment(1) == 'patientmanager') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>patientmanager" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">患者管理</a>
 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="<?php echo base_url(); ?>patientmanager">病人管理</a>
-                    <a class="dropdown-item" href="<?php echo base_url(); ?>patientmanager">数据分析</a>
+                    <a class="dropdown-item" href="<?php echo base_url(); ?>patientmanager/data">数据分析</a>
                 </div>
             </li>
             <li class="nav-item">

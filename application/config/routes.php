@@ -61,13 +61,19 @@ $route['login'] = 'Login';
 $route['logout'] = 'Login/logout';
 $route['login/process'] = 'Login/process';
 
-$route['pnscreening_doctor'] = 'PNScreeningDoc';
-$route['patientmanager'] = 'PatientManager';
 $route['consulting_doctor'] = 'Consulting';
-
 
 $route['pnscreening_doctor'] = 'PNScreeningDoc';
 $route['pnscreening_doctor/(:any)'] = 'PNScreeningDoc/comment/$1';
+
+$route['patientmanager'] = 'PatientManager';
+$route['patientmanager/checkin/(:any)'] = 'PatientManager/checkin/$1';
+$route['patientmanager/checkin_uncheck/(:any)'] = 'PatientManager/checkin_uncheck/$1';
+$route['patientmanager/checkout/(:any)'] = 'PatientManager/checkout/$1';
+$route['patientmanager/checkout_uncheck/(:any)'] = 'PatientManager/checkout_uncheck/$1';
+$route['patientmanager/followup/(:any)'] = 'PatientManager/followup/$1';
+$route['patientmanager/data'] = 'PatientManager/data';
+$route['patientmanager/data/(:any)'] = 'PatientManager/timelinedata/$1';
 
 $route['send-message'] = 'Consulting/send_text_message';
 $route['chat-attachment/upload'] = 'Consulting/send_text_message';
