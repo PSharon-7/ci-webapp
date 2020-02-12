@@ -8,19 +8,26 @@ class UserModel extends CI_Model {
 
     public function GetUserData()
     {
+        $this->db->select('account_id as id, name');
+        $this->db->from($this->Doctor);
+        $this->db->where("account_id", $this->session->userdata['User']['id']);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        }
+        
         $this->db->select('wxid as id, name');
         $this->db->from($this->Patient);
         $this->db->where("wxid", $this->session->userdata['User']['id']);
         $this->db->limit(1);
 
         $query = $this->db->get();
-
-        if ($query) 
-        {
+        if ($query->num_rows() > 0) {
             return $query->row_array();
-        } 
-        else 
-        {
+        } else {
             return false;
         }
     }   
@@ -32,22 +39,26 @@ class UserModel extends CI_Model {
         $this->db->where("account_id", $id);
         $this->db->limit(1);
 
-        $query_doctor = $this->db->get();
-        $res_doctor = $query_doctor->row_array();
+        $query = $this->db->get();
 
-        if (!empty($res_doctor['name'])) {
-            return $res_doctor['name'];
+        if ($query->num_rows() > 0) {
+            $res = $query->row_array();
+            return $res['name'];
         }
-
+        
         $this->db->select('wxid as id, name');
         $this->db->from($this->Patient);
         $this->db->where("wxid", $id);
         $this->db->limit(1);
 
-        $query_patient = $this->db->get();
-        $res_patient = $query_patient->row_array();
+        $query = $this->db->get();
 
-        return $res_patient['name'];
+        if ($query->num_rows() > 0) {
+            $res = $query->row_array();
+            return $res['name'];
+        } else {
+            return false;
+        }
     }
 
     public function DoctorsList() 
