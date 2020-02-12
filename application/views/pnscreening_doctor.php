@@ -52,7 +52,6 @@
 
 <?php $this->load->view('templates/footer'); ?>
 
-
 <!-- MDBootstrap Datatables  -->
 <script type="text/javascript" src="<?=base_url('assets')?>/js/datatables.min.js"></script>
 <script>

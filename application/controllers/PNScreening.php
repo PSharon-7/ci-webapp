@@ -112,7 +112,7 @@ class PNScreening extends CI_Controller {
 
     public function id_check()
     {
-        $wxid = "mock1";
+        $wxid = "mock0";
 
         $id = $_POST['id'];
         $query_id = $this->db->get_where('pnctscreen', array('id' => $id)); 

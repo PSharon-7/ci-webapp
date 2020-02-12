@@ -32,8 +32,8 @@
             <div class="form-group col-6">
                 <label for="smokehistory">吸烟史</label>
                 <select name="smokehistory" class="form-control">
-                    <option <?php echo ((isset($_POST['smokehistory']) && $_POST['smokehistory'] == '男') || (isset($smokehistory) && $smokehistory == '有')) ? 'selected="selected"' : ''; ?>>有</option>
-                    <option <?php echo ((isset($_POST['smokehistory']) && $_POST['smokehistory'] == '女') || (isset($smokehistory) && $smokehistory == '无')) ? 'selected="selected"' : ''; ?>>无</option>
+                    <option <?php echo ((isset($_POST['smokehistory']) && $_POST['smokehistory'] == '有') || (isset($smokehistory) && $smokehistory == '有')) ? 'selected="selected"' : ''; ?>>有</option>
+                    <option <?php echo ((isset($_POST['smokehistory']) && $_POST['smokehistory'] == '无') || (isset($smokehistory) && $smokehistory == '无')) ? 'selected="selected"' : ''; ?>>无</option>
                 </select>
             </div>
         </div>

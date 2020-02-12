@@ -17,6 +17,9 @@
             body {
                 background-color: #ecf0f5;
             }
+            .nav-pills li a {
+                border-top-width: 0px;
+            }
             #logout {
                 position: absolute;
                 top: 0;

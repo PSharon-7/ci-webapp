@@ -7,6 +7,7 @@
 
         <!-- Style Sheet -->
         <link rel="stylesheet" href="<?=base_url('assets')?>/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="<?=base_url('assets')?>/css/style.css" rel="stylesheet">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="<?=base_url('assets')?>/components/font-awesome/css/font-awesome.min.css">
   
@@ -30,6 +31,6 @@
                 <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'consult') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>consult">咨询沟通</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'dynamics') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>dynamics">前沿动态</a>
+                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->segment(1) == 'dynamics') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>dynamics">前沿动态</a>
             </li>
         </ul>

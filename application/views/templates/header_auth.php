@@ -28,14 +28,6 @@
                 background-color: #282d31;
             }
 
-            body {
-                font: 90%/1.45em "Helvetica Neue", HelveticaNeue, Verdana, Arial, Helvetica, sans-serif;
-                margin: 0;
-                padding: 0;
-                color: #333;
-                background-color: #fff;
-            }
-
             table.dataTable.dtr-column > tbody > tr > td.control:before, table.dataTable.dtr-column > tbody > tr > th.control::before{
                 display: none;
                 font-family: "Font Awesome 5 Solid";

@@ -6,7 +6,7 @@ class UserInfo extends CI_Controller {
     public function index()
     {
         // TODO: add wxid
-        $wxid = "mock4";
+        $wxid = "mock1";
 
         $id = $name = "";
         $doctorcheck = -1;
@@ -36,9 +36,6 @@ class UserInfo extends CI_Controller {
         {
             $id = $_POST['id'];
             $name = $_POST['name'];
-
-            echo $id;
-            echo $name;
 
             $data = array(
                 'wxid' => $wxid,

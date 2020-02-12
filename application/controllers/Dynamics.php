@@ -7,4 +7,9 @@ class Dynamics extends CI_Controller {
     {
         $this->load->view('dynamics');
     }
+
+    public function articles($id)
+    {
+    	$this->load->view('articles/'.$id);
+    }
 }

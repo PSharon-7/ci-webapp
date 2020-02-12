@@ -27,17 +27,16 @@ class Consulting extends CI_Controller {
             $data['strTitle']='所有患者';
             $data['strsubTitle']='名患者';
             $data['chatTitle']='选择一位患者沟通';
- 
         }
-        $doctorslist=[];
+        $userlist=[];
         foreach($list as $u){
-            $doctorslist[]=
+            $userlist[]=
             [
                 'id' => $this->OuthModel->Encryptor('encrypt', $u['id']),
                 'name' => $u['name'],
             ];
         }
-        $data['doctorslist']=$doctorslist;
+        $data['userlist']=$userlist;
 
         if($this->session->userdata['User']['role'] == 'Patient')
         {

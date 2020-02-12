@@ -52,20 +52,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'Welcome';
 
+// 结节筛查
 $route['pnscreening'] = 'PNScreening';
 $route['info'] = 'UserInfo';
 $route['consult'] = 'Consulting';
 $route['dynamics'] = 'Dynamics';
+$route['dynamics/(:num)'] = 'Dynamics/articles/$1';
 
+// 心胸百科
+$route['category/(:any)'] = 'Category/index/$1';
+$route['category/(:any)/(:num)'] = 'Category/articles/$1/$2';
+
+// 新技术
+$route['newtech/(:num)'] = 'Newtech/articles/$1';
+
+// 医生登陆
 $route['login'] = 'Login';
 $route['logout'] = 'Login/logout';
 $route['login/process'] = 'Login/process';
 
-$route['consulting_doctor'] = 'Consulting';
-
+// 医生入口 - 结节筛查
 $route['pnscreening_doctor'] = 'PNScreeningDoc';
 $route['pnscreening_doctor/(:any)'] = 'PNScreeningDoc/comment/$1';
 
+// 患者管理
 $route['patientmanager'] = 'PatientManager';
 $route['patientmanager/checkin/(:any)'] = 'PatientManager/checkin/$1';
 $route['patientmanager/checkin_uncheck/(:any)'] = 'PatientManager/checkin_uncheck/$1';
@@ -75,11 +85,11 @@ $route['patientmanager/followup/(:any)'] = 'PatientManager/followup/$1';
 $route['patientmanager/data'] = 'PatientManager/data';
 $route['patientmanager/data/(:any)'] = 'PatientManager/timelinedata/$1';
 
+// 咨询沟通
+$route['consulting_doctor'] = 'Consulting';
 $route['send-message'] = 'Consulting/send_text_message';
 $route['chat-attachment/upload'] = 'Consulting/send_text_message';
 $route['get-chat-history'] = 'Consulting/get_chat_history';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-
-

@@ -17,6 +17,9 @@
             body {
                 background-color: #ecf0f5;
             }
+            .nav-pills li a {
+                border-top-width: 0px;
+            }
             .fileDiv {
                 position: relative;
                 overflow: hidden;
@@ -46,8 +49,7 @@
             .attachmentImgCls{ width:450px; margin-left: -25px; cursor:pointer; }
         </style>
     </head>
-
-  
+    
     <body class="hold-transition skin-blue sidebar-mini">
         <div alt="top photo">
             <img src="<?php echo base_url(); ?>assets/images/hospital.jpeg" class="w-100">
