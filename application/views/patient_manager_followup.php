@@ -65,6 +65,7 @@
                     <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '未愈') || (isset($disease_outcome) && $disease_outcome == '未愈')) ? 'selected="selected"' : ''; ?>>未愈</option>
                     <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '好转') || (isset($disease_outcome) && $disease_outcome == '好转')) ? 'selected="selected"' : ''; ?>>好转</option>
                     <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '复发') || (isset($disease_outcome) && $disease_outcome == '复发')) ? 'selected="selected"' : ''; ?>>复发</option>
+                    <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '死亡') || (isset($disease_outcome) && $disease_outcome == '死亡')) ? 'selected="selected"' : ''; ?>>死亡</option>                    
                 </select>
             </div>
             <div class="row">

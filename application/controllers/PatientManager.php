@@ -113,7 +113,7 @@ class PatientManager extends CI_Controller {
 
     public function checkout($id) 
     {
-        $wxid = $name = $checkout_diagnosis = $pathological_result = $staging = $surgery_name = $surgery_time = $surgery_blood_volume = $stay_time = $ic_time = $dt_time = $stay_spend = $insurance_type = $disease_outcome = $living_state = $deadtime = $dna_test = "";
+        $wxid = $name = $checkouttime = $checkout_diagnosis = $pathological_result = $staging = $surgery_name = $surgery_time = $surgery_blood_volume = $stay_time = $ic_time = $dt_time = $stay_spend = $insurance_type = $disease_outcome = $living_state = $deadtime = $dna_test = "";
         $doctorcheck = 0;
 
         $query = $this->db->get_where('patientinfo_checkout', array('id' => $id)); 
@@ -123,6 +123,7 @@ class PatientManager extends CI_Controller {
             $wxid = $data->wxid;
             $id = $id;
             $name = $data->name;
+            $checkouttime = $data->checkouttime; 
             $checkout_diagnosis = $data->checkout_diagnosis;
             $pathological_result = $data->pathological_result;
             $staging = $data->staging;
@@ -147,6 +148,7 @@ class PatientManager extends CI_Controller {
 
         $form_data['id'] = $id;
         $form_data['name'] = $name;
+        $form_data['checkouttime'] = $checkouttime;
         $form_data['checkout_diagnosis'] = $checkout_diagnosis;
         $form_data['pathological_result'] = $pathological_result;
         $form_data['staging'] = $staging;
@@ -174,6 +176,7 @@ class PatientManager extends CI_Controller {
         {
             $id = $_POST['id'];
             $name = $_POST['name'];
+            $checkouttime = $_POST['checkouttime'];
             $checkout_diagnosis = $_POST['checkout_diagnosis'];
             $pathological_result = $_POST['pathological_result'];
             $staging = $_POST['staging'];
@@ -200,6 +203,7 @@ class PatientManager extends CI_Controller {
                 'wxid' => $wxid,
                 'id' => $id,
                 'name' => $name,
+                'checkouttime' => $checkouttime,
                 'checkout_diagnosis' => $checkout_diagnosis,
                 'pathological_result' => $pathological_result,
                 'staging' => $staging,
@@ -306,33 +310,33 @@ class PatientManager extends CI_Controller {
         $data['checkout'] = array();
         $data['checkin'] = array();
 
-        $query = $this->db->select('review_result, review_condition, review_date')
+        $query = $this->db->select('review_result, review_condition, review_date, disease_outcome, treatment, medicine_name, dose, treatment_course')
                     ->from('patientinfo_followup')
                     ->where('id', $id)
                     ->order_by('review_date','DESC')
                     ->get();
         foreach ($query->result() as $row){
-            array_push($data['followup'], array($row->review_date, $row->review_result, $row->review_condition));
+            array_push($data['followup'], array($row->disease_outcome, $row->review_date, $row->review_result, $row->review_condition, $row->treatment, $row->medicine_name, $row->dose, $row->treatment_course));
         }
 
-        $query = $this->db->select('checkout_diagnosis, surgery_name, surgery_time, stay_time')
+        $query = $this->db->select('checkout_diagnosis, disease_outcome, surgery_name, surgery_time, stay_time, pathological_result, staging, dt_time, dna_test, checkouttime')
                     ->from('patientinfo_checkout')
                     ->where('id', $id)
                     ->get();
 
         if (!empty($query)) {
             $row = $query->row();
-            $data['checkout'] = array($row->surgery_name, $row->surgery_time, $row->stay_time, $row->checkout_diagnosis);
+            $data['checkout'] = array($row->disease_outcome, $row->surgery_name,  $row->surgery_time, $row->stay_time, $row->checkout_diagnosis, $row->pathological_result, $row->staging, $row->dt_time, $row->dna_test, $row->checkouttime);
         }
 
-        $query = $this->db->select('name, checkindiagnosis, checkintime, history')
+        $query = $this->db->select('name, checkindiagnosis, checkintime, history, smokehistory')
                     ->from('patientinfo')
                     ->where('id', $id)
                     ->get();
 
         if (!empty($query)) {
             $row = $query->row();
-            $data['checkin'] = array($row->checkintime, $row->checkindiagnosis, $row->history);
+            $data['checkin'] = array($row->checkintime, $row->checkindiagnosis, $row->history, $row->smokehistory);
         }
 
         $data['name'] = $row->name;

@@ -16,6 +16,11 @@
         </div>
 
         <div class="form-group">
+            <label for="checkouttime">出院时间</label>
+            <input class="form-control" name="checkouttime" type="date" value="<?php echo isset($_POST['checkouttime'])? $_POST['checkouttime'] : $checkouttime; ?>">
+        </div>
+
+        <div class="form-group">
             <label for="checkout_diagnosis">出院诊断</label>
             <input class="form-control" name="checkout_diagnosis" type="text" value="<?php echo isset($_POST['checkout_diagnosis'])? $_POST['checkout_diagnosis'] : $checkout_diagnosis; ?>">
         </div>
@@ -105,6 +110,8 @@
                 <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '未愈') || (isset($disease_outcome) && $disease_outcome == '未愈')) ? 'selected="selected"' : ''; ?>>未愈</option>
                 <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '好转') || (isset($disease_outcome) && $disease_outcome == '好转')) ? 'selected="selected"' : ''; ?>>好转</option>
                 <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '复发') || (isset($disease_outcome) && $disease_outcome == '复发')) ? 'selected="selected"' : ''; ?>>复发</option>
+                <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '死亡') || (isset($disease_outcome) && $disease_outcome == '死亡')) ? 'selected="selected"' : ''; ?>>死亡</option>
+
             </select>
         </div>
 
@@ -145,6 +152,11 @@
         <div class="form-group">
             <label for="id">身份证号</label>
             <input class="form-control-plaintext" readonly name="id" type="text" value="<?php echo isset($_POST['id'])? $_POST['id'] : $id; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="checkouttime">出院时间</label>
+            <input class="form-control" readonly name="checkouttime" type="date" value="<?php echo isset($_POST['checkouttime'])? $_POST['checkouttime'] : $checkouttime; ?>">
         </div>
 
         <div class="form-group">
