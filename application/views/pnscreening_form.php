@@ -138,7 +138,7 @@
 
         <div class="form-group">
             <label for="patientsuggestion">患者建议</label>
-            <textarea class="form-control" name="patientsuggestion" value="<?php echo isset($_POST['patientsuggestion'])? $_POST['patientsuggestion'] : $patientsuggestion; ?>"></textarea>
+            <textarea class="form-control" name="patientsuggestion" form="pnscreening_form"><?php echo isset($_POST['patientsuggestion'])? $_POST['patientsuggestion'] : $patientsuggestion; ?></textarea>
         </div>
 
         <div class="d-flex justify-content-center">
