@@ -58,7 +58,7 @@ ul.timeline > li:before {
                 if (!empty($checkin)) { 
                     echo 
                         '<li>
-                            <h6 class="font-italic"><a href="'.base_url().'patientmanager/checkin/'.$id.'">出院</a></h6>
+                            <h6 class="font-italic"><a href="'.base_url().'patientmanager/checkin/'.$id.'">入院</a></h6>
                             <p class="my-0 mt-2">入院时间: '.$checkin[0].'</p><p class="my-0">入院诊断: '.$checkin[1].'</p><p class="my-0">既往史: '.$checkin[2].'</p>
                         </li>';
                 } ?>

@@ -21,7 +21,9 @@ class PNScreeningDoc extends CI_Controller {
 
     public function comment($id) 
     {
-        $wxid = $name = $gender = $age = $smokehistory = $address = $phonenumber = $resulttime = $pnposition = $pncontent = $pnsize = $doctor = $checktime = $checkhospital = "";
+        $wxid = $name = $gender = $age = $smokehistory = $smoketime = $phonenumber = $resulttime = $pnposition = $pncontent = $pnsize = $doctor = $checktime = $checkhospital = $patientsuggestion = "";
+        $address = "湖南省邵阳市";
+        $pnposition_lung = $pnposition_lobe = $pnposition_segment = "";
 
         $query = $this->db->get_where('pnctscreen', array('id' => $id)); 
 
@@ -42,7 +44,14 @@ class PNScreeningDoc extends CI_Controller {
             $doctor = $data->doctor;
             $checktime = $data->checktime;
             $checkhospital = $data->checkhospital;
+            $patientsuggestion = $data->patientsuggestion;
 
+            list($pnposition_lung, $pnposition_lobe, $pnposition_segment) = explode(" ", $pnposition);
+        }
+
+        if ($smokehistory != '无') {
+            $smoketime = $smokehistory;
+            $smokehistory = '有';
         }
 
         $form_data['id'] = $id;
@@ -50,15 +59,21 @@ class PNScreeningDoc extends CI_Controller {
         $form_data['gender'] = $gender;
         $form_data['age'] = $age;
         $form_data['smokehistory'] = $smokehistory;
+        $form_data['smoketime'] = $smoketime;
         $form_data['address'] = $address;
         $form_data['phonenumber'] = $phonenumber;
         $form_data['resulttime'] = $resulttime;
-        $form_data['pnposition'] = $pnposition;
+
+        $form_data['pnposition_lung'] = $pnposition_lung;
+        $form_data['pnposition_lobe'] = $pnposition_lobe;
+        $form_data['pnposition_segment'] = $pnposition_segment;
+
         $form_data['pncontent'] = $pncontent;
         $form_data['pnsize'] = $pnsize;
         $form_data['doctor'] = $doctor;
         $form_data['checktime'] = $checktime;
         $form_data['checkhospital'] = $checkhospital;
+        $form_data['patientsuggestion'] = $patientsuggestion;
 
         $this->form_validation->set_rules(
             'phonenumber', '电话号码',
@@ -76,15 +91,26 @@ class PNScreeningDoc extends CI_Controller {
             $gender = $_POST['gender'];
             $age = $_POST['age'];
             $smokehistory = $_POST['smokehistory'];
+            $smoketime = $_POST['smoketime'];
             $address = $_POST['address'];
             $phonenumber = $_POST['phonenumber'];
             $resulttime = $_POST['resulttime'];
-            $pnposition = $_POST['pnposition'];
+
+            $pnposition_lung = $_POST['pnposition_lung'];
+            $pnposition_lobe = $_POST['pnposition_lobe'];
+            $pnposition_segment = $_POST['pnposition_segment'];
+            $pnposition = $pnposition_lung." ".$pnposition_lobe." ".$pnposition_segment;
+            
             $pncontent = $_POST['pncontent'];
             $pnsize = $_POST['pnsize'];
             $doctor = $_POST['doctor'];
             $checktime = $_POST['checktime'];
             $checkhospital = $_POST['checkhospital'];
+            $patientsuggestion = $_POST['patientsuggestion'];
+
+            if ($smokehistory == '有') {
+                $smokehistory = $smoketime;
+            }
 
             $data = array(
                 'wxid' => $wxid,
@@ -102,6 +128,7 @@ class PNScreeningDoc extends CI_Controller {
                 'doctor' => $doctor,
                 'checktime' => $checktime,
                 'checkhospital' => $checkhospital,
+                'patientsuggestion' => $patientsuggestion,
                 'doctor_checked_already' => 1
             );
 

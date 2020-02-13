@@ -13,9 +13,9 @@
         );
 
         $this->table->set_template($template);
-        $this->table->set_heading(array('复查结果', '复发情况', '复查日期', '治疗方式', '药物名称', '剂量', '疗程', '住院费用'));
+        $this->table->set_heading(array('复查结果', '复发情况', '复查日期', '治疗方式', '药物名称', '剂量', '疗程', '住院费用', '疾病转归', '生存状态', '死亡时间'));
         
-        $this->db->select('review_result, review_condition, review_date, treatment, medicine_name, dose, treatment_course, stay_spend');
+        $this->db->select('review_result, review_condition, review_date, treatment, medicine_name, dose, treatment_course, stay_spend, disease_outcome, living_state, deadtime');
         $this->db->where('id', $id);
 
         $query = $this->db->get('patientinfo_followup');
@@ -24,7 +24,7 @@
     ?>
 
 
-    <div id="followup_form" class="collapse mt-3 container">
+    <div id="followup_form" class="collapse mt-3">
     <?php echo validation_errors('<div class="mt-3 alert alert-danger validation_errors">', '</div>'); ?>
         <form action="" method="post">
             <div class="form-group">
@@ -59,8 +59,30 @@
                 <label for="stay_spend">住院费用</label>
                 <input class="form-control" name="stay_spend" type="text" value="<?php echo isset($_POST['stay_spend'])? $_POST['stay_spend'] : ''; ?>">
             </div>
+            <div class="form-group">
+                <label for="disease_outcome">疾病转归</label>
+                <select name="disease_outcome" class="form-control">
+                    <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '未愈') || (isset($disease_outcome) && $disease_outcome == '未愈')) ? 'selected="selected"' : ''; ?>>未愈</option>
+                    <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '好转') || (isset($disease_outcome) && $disease_outcome == '好转')) ? 'selected="selected"' : ''; ?>>好转</option>
+                    <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '复发') || (isset($disease_outcome) && $disease_outcome == '复发')) ? 'selected="selected"' : ''; ?>>复发</option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="living_state">生存状态</label>
+                    <select id="living_state" name="living_state" class="form-control">
+                        <option <?php echo ((isset($_POST['living_state']) && $_POST['living_state'] == '活着') || (isset($living_state) && $living_state == '活着')) ? 'selected="selected"' : ''; ?> >活着</option>
+                        <option <?php echo ((isset($_POST['living_state']) && $_POST['living_state'] == '死亡') || (isset($living_state) && $living_state == '死亡')) ? 'selected="selected"' : ''; ?> >死亡</option>
+                    </select>
+                </div>
 
-            <div class="d-flex justify-content-center">
+                <div id="deadtime" class="form-group col-6">
+                    <label for="deadtime">死亡时间</label>
+                    <input class="form-control" name="deadtime" type="date" value="<?php echo isset($_POST['deadtime'])? $_POST['deadtime'] : ''; ?>">
+                </div>
+            </div>
+
+            <div class="justify-content-center">
                 <button class="btn btn-primary" name="submit">提交随访</button>
             </div>
         </form>
@@ -111,7 +133,26 @@
                 }
             }
         });
-    });
 
+        var livingstate = $('#living_state :selected').val() || $('#living_state').val() ;
+        if (livingstate == '死亡') {
+            if ($('#deadtime').hasClass('invisible')) {
+                $('#deadtime').removeClass('invisible');
+            }
+        } else if (!$('#deadtime').hasClass('invisible')){
+            $('#deadtime').addClass('invisible');
+        }
+
+        $('#living_state').change(function(){
+            var selectedVal = $(this).val();
+            if (selectedVal == '死亡') {
+                if ($('#deadtime').hasClass('invisible')) {
+                    $('#deadtime').removeClass('invisible');
+                }
+            } else if (!$('#deadtime').hasClass('invisible')){
+                $('#deadtime').addClass('invisible');
+            }
+        });
+    });
 
 </script>

@@ -21,7 +21,8 @@ class PatientManager extends CI_Controller {
 
     public function checkin($id) 
     {
-        $wxid = $name = $gender = $age = $smokehistory = $drinkhistory = $phonenumber = $address = $checkindiagnosis = $checkintime = $history = "";
+        $wxid = $name = $gender = $age = $smokehistory = $drinkhistory = $phonenumber = $checkindiagnosis = $checkintime = $history = "";
+        $address = "湖南省邵阳市";
         $doctorcheck = 0;
 
         $query = $this->db->get_where('patientinfo', array('id' => $id)); 
@@ -112,7 +113,7 @@ class PatientManager extends CI_Controller {
 
     public function checkout($id) 
     {
-        $wxid = $name = $checkout_diagnosis = $pathological_result = $staging = $surgery_name = $surgery_time = $surgery_blood_volume = $stay_time = $ic_time = $dt_time = $stay_spend = $insurance_type = $dna_test = "";
+        $wxid = $name = $checkout_diagnosis = $pathological_result = $staging = $surgery_name = $surgery_time = $surgery_blood_volume = $stay_time = $ic_time = $dt_time = $stay_spend = $insurance_type = $disease_outcome = $living_state = $deadtime = $dna_test = "";
         $doctorcheck = 0;
 
         $query = $this->db->get_where('patientinfo_checkout', array('id' => $id)); 
@@ -133,8 +134,15 @@ class PatientManager extends CI_Controller {
             $dt_time = $data->dt_time;
             $stay_spend = $data->stay_spend;
             $insurance_type = $data->insurance_type;
+            $disease_outcome = $data->disease_outcome;
+            $living_state = $data->living_state;
             $dna_test = $data->dna_test;
             $doctorcheck = $data->doctorcheck;
+        }
+
+        if ($living_state != '或者') {
+            $deadtime = $living_state;
+            $living_state = '死亡';
         }
 
         $form_data['id'] = $id;
@@ -150,6 +158,11 @@ class PatientManager extends CI_Controller {
         $form_data['dt_time'] = $dt_time;
         $form_data['stay_spend'] = $stay_spend;
         $form_data['insurance_type'] = $insurance_type;
+        $form_data['disease_outcome'] = $disease_outcome;
+
+        $form_data['living_state'] = $living_state;
+        $form_data['deadtime'] = $deadtime;
+
         $form_data['dna_test'] = $dna_test;
         $form_data['doctorcheck'] = $doctorcheck;
 
@@ -172,7 +185,16 @@ class PatientManager extends CI_Controller {
             $dt_time = $_POST['dt_time'];
             $stay_spend = $_POST['stay_spend'];
             $insurance_type = $_POST['insurance_type'];
+            $disease_outcome = $_POST['disease_outcome'];
+
+            $living_state = $_POST['living_state'];
+            $deadtime = $_POST['deadtime'];
+
             $dna_test = $_POST['dna_test'];
+
+            if ($living_state == '死亡') {
+                $living_state = $deadtime;
+            }
 
             $data = array(
                 'wxid' => $wxid,
@@ -189,6 +211,8 @@ class PatientManager extends CI_Controller {
                 'dt_time' => $dt_time,
                 'stay_spend' => $stay_spend,
                 'insurance_type' => $insurance_type,
+                'disease_outcome' => $disease_outcome,
+                'living_state' => $living_state,
                 'dna_test' => $dna_test,
                 'doctorcheck' => 1
             );
@@ -241,6 +265,9 @@ class PatientManager extends CI_Controller {
             $dose = $_POST['dose'];
             $treatment_course = $_POST['treatment_course'];
             $stay_spend = $_POST['stay_spend'];
+            $disease_outcome = $_POST['disease_outcome'];
+            $living_state = $_POST['living_state'];
+            $deadtime = $_POST['deadtime'];
 
             $data = array(
                 'wxid' => $wxid,
@@ -253,7 +280,10 @@ class PatientManager extends CI_Controller {
                 'medicine_name' => $medicine_name,
                 'dose' => $dose,
                 'treatment_course' => $treatment_course,
-                'stay_spend' => $stay_spend
+                'stay_spend' => $stay_spend,
+                'disease_outcome' => $disease_outcome,
+                'living_state' => $living_state,
+                'deadtime' => $deadtime
             );
 
             $this->db->insert('patientinfo_followup', $data);
@@ -289,15 +319,21 @@ class PatientManager extends CI_Controller {
                     ->from('patientinfo_checkout')
                     ->where('id', $id)
                     ->get();
-        $row = $query->row();
-        $data['checkout'] = array($row->surgery_name, $row->surgery_time, $row->stay_time, $row->checkout_diagnosis);
+
+        if (!empty($query)) {
+            $row = $query->row();
+            $data['checkout'] = array($row->surgery_name, $row->surgery_time, $row->stay_time, $row->checkout_diagnosis);
+        }
 
         $query = $this->db->select('name, checkindiagnosis, checkintime, history')
                     ->from('patientinfo')
                     ->where('id', $id)
                     ->get();
-        $row = $query->row();
-        $data['checkin'] = array($row->checkintime, $row->checkindiagnosis, $row->history);
+
+        if (!empty($query)) {
+            $row = $query->row();
+            $data['checkin'] = array($row->checkintime, $row->checkindiagnosis, $row->history);
+        }
 
         $data['name'] = $row->name;
         $this->load->view('patient_manager_timeline', $data);

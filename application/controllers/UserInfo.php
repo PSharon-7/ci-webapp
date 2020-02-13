@@ -6,22 +6,41 @@ class UserInfo extends CI_Controller {
     public function index()
     {
         // TODO: add wxid
-        $wxid = "mock1";
+        $wxid = "mock0";
 
-        $id = $name = "";
+        $id = $name = $gender = $age = $smokehistory = $drinkhistory = $phonenumber = $address = $checkindiagnosis = $checkintime = $history = "";
         $doctorcheck = -1;
 
         $query = $this->db->get_where('patientinfo', array('wxid' => $wxid)); 
 
         if ($query->num_rows() > 0) {
             $data = $query->row();
+            $wxid = $data->wxid;
             $id = $data->id;
             $name = $data->name;
+            $gender = $data->gender;
+            $age = $data->age;
+            $smokehistory = $data->smokehistory;
+            $drinkhistory = $data->drinkhistory;
+            $phonenumber = $data->phonenumber;
+            $address = $data->address;
+            $checkindiagnosis = $data->checkindiagnosis;
+            $checkintime = $data->checkintime;
+            $history = $data->history;
             $doctorcheck = $data->doctorcheck;
         }
 
         $form_data['id'] = $id;
         $form_data['name'] = $name;
+        $form_data['gender'] = $gender;
+        $form_data['age'] = $age;
+        $form_data['smokehistory'] = $smokehistory;
+        $form_data['drinkhistory'] = $drinkhistory;
+        $form_data['phonenumber'] = $phonenumber;
+        $form_data['address'] = $address;
+        $form_data['checkindiagnosis'] = $checkindiagnosis;
+        $form_data['checkintime'] = $checkintime;
+        $form_data['history'] = $history;
         $form_data['doctorcheck'] = $doctorcheck;
 
         $this->form_validation->set_rules(
@@ -41,6 +60,15 @@ class UserInfo extends CI_Controller {
                 'wxid' => $wxid,
                 'id' => $id,
                 'name' => $name,
+                'gender' => $gender,
+                'age' => $age,
+                'smokehistory' => $smokehistory,
+                'drinkhistory' => $drinkhistory,
+                'phonenumber' => $phonenumber,
+                'address' => $address,
+                'checkindiagnosis' => $checkindiagnosis,
+                'checkintime' => $checkintime,
+                'history' => $history,
                 'doctorcheck' => 0
             );
 

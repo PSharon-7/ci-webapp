@@ -3,6 +3,7 @@
 
 <?php if ($doctorcheck == 0) { ?>
 <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
+<div id="form_validation_errors"></div>
 <form class="mt-3" action="" method="post">
     <div class="container">
         <div class="form-group">
@@ -12,7 +13,7 @@
 
         <div class="form-group">
             <label for="id">身份证号</label>
-            <input class="form-control" name="id" type="text" value="<?php echo isset($_POST['id'])? $_POST['id'] : $id; ?>" required>
+            <input id="idcard" class="form-control" name="id" type="text" value="<?php echo isset($_POST['id'])? $_POST['id'] : $id; ?>" required>
         </div>
 
         <div class="row">
@@ -26,7 +27,7 @@
 
             <div class="form-group col-6">
                 <label for="age">年龄</label>
-                <input class="form-control" name="age" type="text" value="<?php echo isset($_POST['age'])? $_POST['age'] : $age; ?>">
+                <input id="age" class="form-control" readonly name="age" type="text" value="<?php echo isset($_POST['age'])? $_POST['age'] : $age; ?>">
             </div>
         </div>
         
@@ -151,3 +152,5 @@
 <div class="my-4"></div>
 
 <?php $this->load->view('templates/footer'); ?>
+
+<script type="text/javascript" src="<?=base_url('assets')?>/js/form.js"></script>
