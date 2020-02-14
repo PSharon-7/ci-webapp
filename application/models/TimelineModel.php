@@ -10,13 +10,13 @@ class TimelineModel extends CI_Model {
         $data['checkout'] = array();
         $data['checkin'] = array();
 
-        $query = $this->db->select('review_result, review_condition, review_date, disease_outcome, treatment, medicine_name, dose, treatment_course')
+        $query = $this->db->select('review_result, review_date, disease_outcome, treatment, medicine_name, dose, treatment_course')
                     ->from('patientinfo_followup')
                     ->where('id', $id)
                     ->order_by('review_date','DESC')
                     ->get();
         foreach ($query->result() as $row){
-            array_push($data['followup'], array($row->disease_outcome, $row->review_date, $row->review_result, $row->review_condition, $row->treatment, $row->medicine_name, $row->dose, $row->treatment_course));
+            array_push($data['followup'], array($row->disease_outcome, $row->review_date, $row->review_result, $row->treatment, $row->medicine_name, $row->dose, $row->treatment_course));
         }
 
         $query = $this->db->select('checkout_diagnosis, disease_outcome, surgery_name, surgery_time, stay_time, pathological_result, staging, dt_time, dna_test, checkouttime')

@@ -74,7 +74,7 @@
                 </div>
             </div>
 
-            <div class="justify-content-center">
+            <div class="d-flex justify-content-center">
                 <button class="btn btn-primary" name="submit">提交随访</button>
             </div>
         </form>
