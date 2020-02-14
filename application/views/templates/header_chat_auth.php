@@ -11,15 +11,12 @@
         <link rel="stylesheet" href="<?=base_url('assets')?>/components/font-awesome/css/font-awesome.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="<?=base_url('assets')?>/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="<?=base_url('assets')?>/css/_all-skins.min.css">
+        <link rel="stylesheet" href="<?=base_url('assets')?>/css/chat.css">
+        <link rel="stylesheet" href="<?=base_url('assets')?>/css/timeline.css">
 
         <title><?php echo isset($title)? $title : "邵阳市中心医院心胸外科" ?></title>
         <style>
-            body {
-                background-color: #ecf0f5;
-            }
-            .nav-pills li a {
-                border-top-width: 0px;
-            }
             #logout {
                 position: absolute;
                 top: 0;
@@ -28,56 +25,33 @@
             .nav-pills .show>.nav-link{
                 background-color: #282d31;
             }
-            .fileDiv {
-                position: relative;
-                overflow: hidden;
-            }
-            .upload_attachmentfile {
-                position: absolute;
-                opacity: 0;
-                right: 0;
-                top: 0;
-            }
-            .btnFileOpen {margin-top: -50px; }
-
-            .direct-chat-warning .right>.direct-chat-text {
-                background: #d2d6de;
-                border-color: #d2d6de;
-                color: #444;
-                text-align: right;
-            }
-            .direct-chat-primary .right>.direct-chat-text {
-                background: #3c8dbc;
-                border-color: #3c8dbc;
-                color: #fff;
-                text-align: right;
-            }
-            .spiner{}
-            .spiner .fa-spin { font-size:24px;}
-            .attachmentImgCls{ width:450px; margin-left: -25px; cursor:pointer; }
         </style>
     </head>
 
     <body class="hold-transition skin-blue sidebar-mini">
-        <div class="d-flex justify-content-end">
-            <a type="button" class="btn btn-light btn-sm" id="logout" href="<?php echo base_url(); ?>logout">登出</a>
-        </div>
-        <div alt="top photo">
-            <img src="<?php echo base_url(); ?>assets/images/hospital.jpeg" class="w-100">
-        </div>
-        <ul class="nav nav-pills nav-justified bg-dark mb-3">
-            <li class="nav-item">
-                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'pnscreening_doctor') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>pnscreening_doctor">结节筛查</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'patientmanager') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>patientmanager" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">患者管理</a>
+        <div id="top_header">
+            <div class="d-flex justify-content-end">
+                <a type="button" class="btn btn-light btn-sm" id="logout" href="<?php echo base_url(); ?>logout">登出</a>
+            </div>
+            <div alt="top photo">
+                <img src="<?php echo base_url(); ?>assets/images/hospital.jpeg" class="w-100">
+            </div>
+            <ul class="nav nav-pills nav-justified bg-dark">
+                <li class="nav-item">
+                    <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'pnscreening_doctor') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>pnscreening_doctor">结节筛查</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'patientmanager') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>patientmanager" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">患者管理</a>
 
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<?php echo base_url(); ?>patientmanager">病人管理</a>
-                    <a class="dropdown-item" href="<?php echo base_url(); ?>patientmanager">数据分析</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'consulting_doctor') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>consulting_doctor">咨询沟通</a>
-            </li>
-        </ul>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?php echo base_url(); ?>patientmanager">病人管理</a>
+                        <a class="dropdown-item" href="<?php echo base_url(); ?>patientmanager">数据分析</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-0 py-3 rounded-0 text-light <?php if($this->uri->uri_string() == 'consulting_doctor') { echo 'bg-light text-dark'; } ?>" href="<?php echo base_url(); ?>consulting_doctor">咨询沟通</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="wrapper">

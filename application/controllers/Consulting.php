@@ -6,7 +6,7 @@ class Consulting extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model(['ChatModel','OuthModel','UserModel']);
+        $this->load->model(['ChatModel','OuthModel','UserModel','TimelineModel']);
         $this->load->helper('string');
     }
 
@@ -19,13 +19,11 @@ class Consulting extends CI_Controller {
 
         if($this->session->userdata['User']['role'] == 'Patient'){
             $list = $this->UserModel->DoctorsList();
-            $data['strTitle']='所有医生';
-            $data['strsubTitle']='位医生';
+            $data['strTitle']='医生资料';
             $data['chatTitle']='选择一位医生咨询';
         }else{
             $list = $this->UserModel->ClientsList();
-            $data['strTitle']='所有患者';
-            $data['strsubTitle']='名患者';
+            $data['strTitle']='患者资料';
             $data['chatTitle']='选择一位患者沟通';
         }
         $userlist=[];
@@ -34,6 +32,7 @@ class Consulting extends CI_Controller {
             [
                 'id' => $this->OuthModel->Encryptor('encrypt', $u['id']),
                 'name' => $u['name'],
+                'card_info' => $u['card_info'],
             ];
         }
         $data['userlist']=$userlist;
@@ -111,7 +110,8 @@ class Consulting extends CI_Controller {
         } 
     }
 
-    public function get_chat_history(){
+    public function get_chat_history()
+    {
         $receiver_id = $this->OuthModel->Encryptor('decrypt', $this->input->get('receiver_id') );
         $Logged_sender_id = $this->session->userdata['User']['id'];
          
@@ -159,8 +159,6 @@ class Consulting extends CI_Controller {
                     $messageBody = $message;
                 }
             ?>
-            
-            
         
              <?php if($Logged_sender_id!=$sender_id){?>     
                   <!-- Message. Default to the left -->
@@ -197,4 +195,69 @@ class Consulting extends CI_Controller {
         endforeach; 
     }
 
+    public function get_card_info()
+    {
+        $card_info_id = $this->input->get('card_info_id');
+
+        if($this->session->userdata['User']['role'] == 'Patient')
+        {
+            //load doctor info card
+             $query = $this->db->select('title')
+                        ->from('doctor_account')
+                        ->where('account_id', $card_info_id)
+                        ->get();
+
+            if (!empty($query)) {
+                $row = $query->row();
+                $data = $row->title;
+            }
+
+            ?>
+                <p><?=$data;?></p>
+            <?php
+        }
+        else {
+            //load patient timeline
+            $data = $this->TimelineModel->get_timelinedata($card_info_id);
+            $followup = $data["followup"];
+            $checkout = $data["checkout"];
+            $checkin = $data["checkin"];
+
+            ?>
+                <!-- <p>你好啊</p> -->
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <ul class="timeline" id="timeline">
+                            <?php 
+                            if (!empty($followup)) { 
+                                foreach ($followup as $v) {
+                                    echo 
+                                    '<li>
+                                        <h6 class="font-italic"><a href="'.base_url().'patientmanager/followup/'.$card_info_id.'">随访 - '.$v[0].'</a></h6>
+                                        <p class="my-0 mt-2">复查时间: '.$v[1].'</p><p class="my-0">复查结果: '.$v[2].'</p><p class="my-0">复发情况: '.$v[3].'</p><p class="my-0">治疗方式: '.$v[4].'</p><p class="my-0">药物名称: '.$v[5].'</p><p class="my-0">剂量: '.$v[6].'</p><p class="my-0">疗程: '.$v[7].'</p>
+                                    </li>';
+                                }
+                            }
+                            if (!empty($checkout)) { 
+                                echo '
+                                <li>
+                                    <h6 class="font-italic"><a href="'.base_url().'patientmanager/checkout/'.$card_info_id.'">出院 - '.$checkout[0].'</a></h6>
+                                    <p class="my-0 mt-2">出院时间: '.$checkout[9].'</p><p class="my-0">出院诊断: '.$checkout[4].'</p><p class="my-0">手术名称: '.$checkout[1].'</p><p class="my-0">手术时间: '.$checkout[2].'</p><p class="my-0">住院天数: '.$checkout[3].'</p><p class="my-0">病理结果: '.$checkout[5].'</p><p class="my-0">分期: '.$checkout[6].'</p><p class="my-0">引流管留置时间: '.$checkout[7].'</p><p class="my-0">基因检测: '.$checkout[8].'</p>
+                                </li>';
+                            }
+                            if (!empty($checkin)) { 
+                                echo 
+                                    '<li>
+                                        <h6 class="font-italic"><a href="'.base_url().'patientmanager/checkin/'.$card_info_id.'">入院</a></h6>
+                                        <p class="my-0 mt-2">入院时间: '.$checkin[0].'</p><p class="my-0">入院诊断: '.$checkin[1].'</p><p class="my-0">既往史: '.$checkin[2].'</p><p class="my-0">吸烟史: '.$checkin[3].'</p>
+                                    </li>';
+                            } ?>
+                        </ul>
+                    </div>
+                </div>
+
+
+            <?php
+        }        
+    }
 }

@@ -90,6 +90,7 @@ $route['consulting_doctor'] = 'Consulting';
 $route['send-message'] = 'Consulting/send_text_message';
 $route['chat-attachment/upload'] = 'Consulting/send_text_message';
 $route['get-chat-history'] = 'Consulting/get_chat_history';
+$route['get-card-info'] = 'Consulting/get_card_info';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -1,4 +1,3 @@
-<div class="wrapper">
 <div class="content-wrapper"> 
 
     <section class="content">
@@ -39,33 +38,16 @@
             <div class="col-md-4">
                 <div class="box box-danger">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><?=$strTitle;?></h3>
+                        <h3 class="box-title" id="user_data"><?=$strTitle;?></h3>
 
                         <div class="box-tools pull-right">
-                            <span class="label label-danger"><?=count($userlist);?> <?=$strsubTitle;?></span>
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
                         </div>
                     </div>
 
-                    <div class="box-body no-padding">
-                        <ul class="users-list clearfix">
-                  
-                        <?php if(!empty($userlist)){
-                            foreach($userlist as $v):
-                            ?>
-                            <li class="selectVendor" id="<?=$v['id'];?>" title="<?=$v['name'];?>">
-                              <a class="users-list-name" href="#"><?=$v['name'];?></a>
-                            </li>
-                        <?php endforeach;?>
-                    
-                        <?php }else{?>
-                        <li>
-                           <a class="users-list-name" href="#">没有医生...</a>
-                         </li>
-                        <?php } ?>
-                    
-                        </ul>
+                    <div id="card_info" class="box-body p-3 users-list clearfix">
+
                     </div>
                 </div>
             </div>

@@ -63,7 +63,7 @@ class UserModel extends CI_Model {
 
     public function DoctorsList() 
     {  
-        $this->db->select('account_id as id, name');
+        $this->db->select('account_id as id, name, account_id as card_info');
         $this->db->from($this->Doctor);
 
         $query = $this->db->get();
@@ -75,7 +75,7 @@ class UserModel extends CI_Model {
 
     public function ClientsList() 
     {  
-        $this->db->select('wxid as id, name');
+        $this->db->select('wxid as id, name, id as card_info');
         $this->db->from($this->Patient);
 
         $query = $this->db->get();
