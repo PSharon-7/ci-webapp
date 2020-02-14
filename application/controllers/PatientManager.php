@@ -118,7 +118,7 @@ class PatientManager extends CI_Controller {
 
     public function checkout($id) 
     {
-        $wxid = $name = $checkouttime = $checkout_diagnosis = $pathological_result = $staging = $surgery_name = $surgery_time = $surgery_blood_volume = $stay_time = $ic_time = $dt_time = $stay_spend = $insurance_type = $disease_outcome = $living_state = $deadtime = $dna_test = "";
+        $wxid = $name = $checkouttime = $checkout_diagnosis = $pathological_result = $staging = $surgery_name = $surgery_time = $surgery_blood_volume = $stay_time = $ic_time = $dt_time = $stay_spend = $insurance_type = $disease_outcome = $deadtime = $dna_test = "";
         $doctorcheck = 0;
 
         $query = $this->db->get_where('patientinfo_checkout', array('id' => $id)); 
@@ -141,14 +141,13 @@ class PatientManager extends CI_Controller {
             $stay_spend = $data->stay_spend;
             $insurance_type = $data->insurance_type;
             $disease_outcome = $data->disease_outcome;
-            $living_state = $data->living_state;
             $dna_test = $data->dna_test;
             $doctorcheck = $data->doctorcheck;
         }
 
-        if ($living_state != '或者') {
-            $deadtime = $living_state;
-            $living_state = '死亡';
+        if ($disease_outcome != '未愈' && $disease_outcome != '好转' && $disease_outcome != '复发') {
+            $deadtime = $disease_outcome;
+            $disease_outcome = '死亡';
         }
 
         $form_data['id'] = $id;
@@ -165,9 +164,8 @@ class PatientManager extends CI_Controller {
         $form_data['dt_time'] = $dt_time;
         $form_data['stay_spend'] = $stay_spend;
         $form_data['insurance_type'] = $insurance_type;
-        $form_data['disease_outcome'] = $disease_outcome;
 
-        $form_data['living_state'] = $living_state;
+        $form_data['disease_outcome'] = $disease_outcome;
         $form_data['deadtime'] = $deadtime;
 
         $form_data['dna_test'] = $dna_test;
@@ -195,13 +193,12 @@ class PatientManager extends CI_Controller {
             $insurance_type = $_POST['insurance_type'];
             $disease_outcome = $_POST['disease_outcome'];
 
-            $living_state = $_POST['living_state'];
             $deadtime = $_POST['deadtime'];
 
             $dna_test = $_POST['dna_test'];
 
-            if ($living_state == '死亡') {
-                $living_state = $deadtime;
+            if ($disease_outcome == '死亡') {
+                $disease_outcome = $deadtime;
             }
 
             $data = array(
@@ -221,7 +218,6 @@ class PatientManager extends CI_Controller {
                 'stay_spend' => $stay_spend,
                 'insurance_type' => $insurance_type,
                 'disease_outcome' => $disease_outcome,
-                'living_state' => $living_state,
                 'dna_test' => $dna_test,
                 'doctorcheck' => 1
             );
@@ -260,14 +256,12 @@ class PatientManager extends CI_Controller {
         $this->load->library('table');
 
         $this->form_validation->set_rules('review_result', '复查结果', 'required', array('required' => '复查结果需要填写'));
-        $this->form_validation->set_rules('review_condition', '复发情况', 'required', array('required' => '复发情况需要填写'));
         $this->form_validation->set_rules('review_date', '复查日期', 'required', array('required' => '复查日期需要填写'));
 
         //if form validation true
         if($this->form_validation->run() == true)
         {
             $review_result = $_POST['review_result'];
-            $review_condition = $_POST['review_condition'];
             $review_date = $_POST['review_date'];
             $treatment = $_POST['treatment'];
             $medicine_name = $_POST['medicine_name'];
@@ -275,7 +269,6 @@ class PatientManager extends CI_Controller {
             $treatment_course = $_POST['treatment_course'];
             $stay_spend = $_POST['stay_spend'];
             $disease_outcome = $_POST['disease_outcome'];
-            $living_state = $_POST['living_state'];
             $deadtime = $_POST['deadtime'];
 
             $data = array(
@@ -283,7 +276,6 @@ class PatientManager extends CI_Controller {
                 'id' => $id,
                 'name' => $name,
                 'review_result' => $review_result,
-                'review_condition' => $review_condition,
                 'review_date' => $review_date,
                 'treatment' => $treatment,
                 'medicine_name' => $medicine_name,
@@ -291,7 +283,6 @@ class PatientManager extends CI_Controller {
                 'treatment_course' => $treatment_course,
                 'stay_spend' => $stay_spend,
                 'disease_outcome' => $disease_outcome,
-                'living_state' => $living_state,
                 'deadtime' => $deadtime
             );
 
