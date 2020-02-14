@@ -44,7 +44,7 @@ ul.timeline > li:before {
                         echo 
                         '<li>
                             <h6 class="font-italic"><a href="'.base_url().'patientmanager/followup/'.$id.'">随访 - '.$v[0].'</a></h6>
-                            <p class="my-0 mt-2">复查时间: '.$v[1].'</p><p class="my-0">复查结果: '.$v[2].'</p><p class="my-0">复发情况: '.$v[3].'</p><p class="my-0">治疗方式: '.$v[4].'</p><p class="my-0">药物名称: '.$v[5].'</p><p class="my-0">剂量: '.$v[6].'</p><p class="my-0">疗程: '.$v[7].'</p>
+                            <p class="my-0 mt-2">复查时间: '.$v[1].'</p><p class="my-0">复查结果: '.$v[2].'</p><p class="my-0">治疗方式: '.$v[3].'</p><p class="my-0">药物名称: '.$v[4].'</p><p class="my-0">剂量: '.$v[5].'</p><p class="my-0">疗程: '.$v[6].'</p>
                         </li>';
                     }
                 }

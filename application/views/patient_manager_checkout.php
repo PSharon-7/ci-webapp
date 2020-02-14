@@ -104,23 +104,15 @@
             <input class="form-control" name="insurance_type" type="text" value="<?php echo isset($_POST['insurance_type'])? $_POST['insurance_type'] : $insurance_type; ?>">
         </div>
 
-        <div class="form-group">
-            <label for="disease_outcome">疾病转归</label>
-            <select name="disease_outcome" class="form-control">
-                <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '未愈') || (isset($disease_outcome) && $disease_outcome == '未愈')) ? 'selected="selected"' : ''; ?>>未愈</option>
-                <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '好转') || (isset($disease_outcome) && $disease_outcome == '好转')) ? 'selected="selected"' : ''; ?>>好转</option>
-                <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '复发') || (isset($disease_outcome) && $disease_outcome == '复发')) ? 'selected="selected"' : ''; ?>>复发</option>
-                <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '死亡') || (isset($disease_outcome) && $disease_outcome == '死亡')) ? 'selected="selected"' : ''; ?>>死亡</option>
-
-            </select>
-        </div>
-
         <div class="row">
             <div class="form-group col-6">
-                <label for="living_state">生存状态</label>
-                <select id="living_state" name="living_state" class="form-control">
-                    <option <?php echo ((isset($_POST['living_state']) && $_POST['living_state'] == '活着') || (isset($living_state) && $living_state == '活着')) ? 'selected="selected"' : ''; ?>>活着</option>
-                    <option <?php echo ((isset($_POST['living_state']) && $_POST['living_state'] == '死亡') || (isset($living_state) && $living_state == '死亡')) ? 'selected="selected"' : ''; ?>>死亡</option>
+                <label for="disease_outcome">疾病转归</label>
+                <select id="disease_outcome" name="disease_outcome" class="form-control">
+                    <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '未愈') || (isset($disease_outcome) && $disease_outcome == '未愈')) ? 'selected="selected"' : ''; ?>>未愈</option>
+                    <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '好转') || (isset($disease_outcome) && $disease_outcome == '好转')) ? 'selected="selected"' : ''; ?>>好转</option>
+                    <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '复发') || (isset($disease_outcome) && $disease_outcome == '复发')) ? 'selected="selected"' : ''; ?>>复发</option>
+                    <option <?php echo ((isset($_POST['disease_outcome']) && $_POST['disease_outcome'] == '死亡') || (isset($disease_outcome) && $disease_outcome == '死亡')) ? 'selected="selected"' : ''; ?>>死亡</option>
+
                 </select>
             </div>
 
@@ -243,15 +235,10 @@
             <input class="form-control-plaintext" readonly name="insurance_type" type="text" value="<?php echo isset($_POST['insurance_type'])? $_POST['insurance_type'] : $insurance_type; ?>">
         </div>
 
-        <div class="form-group">
-            <label for="disease_outcome">疾病转归</label>
-            <input class="form-control-plaintext" readonly name="disease_outcome" type="text" value="<?php echo isset($_POST['disease_outcome'])? $_POST['disease_outcome'] : $disease_outcome; ?>">
-        </div>
-
         <div class="row">
             <div class="form-group col-6">
-                <label for="living_state">生存状态</label>
-                <input id="living_state" class="form-control-plaintext" readonly name="living_state" type="text" value="<?php echo isset($_POST['living_state'])? $_POST['living_state'] : $living_state; ?>">
+                <label for="disease_outcome">疾病转归</label>
+                <input id="disease_outcome"  class="form-control-plaintext" readonly name="disease_outcome" type="text" value="<?php echo isset($_POST['disease_outcome'])? $_POST['disease_outcome'] : $disease_outcome; ?>">
             </div>
 
             <div id="deadtime" class="form-group col-6">
@@ -278,8 +265,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    var livingstate = $('#living_state :selected').val() || $('#living_state').val() ;
-    if (livingstate == '死亡') {
+    var diseaseoutcome = $('#disease_outcome :selected').val() || $('#disease_outcome').val() ;
+    if (diseaseoutcome == '死亡') {
         if ($('#deadtime').hasClass('invisible')) {
             $('#deadtime').removeClass('invisible');
         }
@@ -287,7 +274,7 @@ $(document).ready(function(){
         $('#deadtime').addClass('invisible');
     }
 
-    $('#living_state').change(function(){
+    $('#disease_outcome').change(function(){
         var selectedVal = $(this).val();
         if (selectedVal == '死亡') {
             if ($('#deadtime').hasClass('invisible')) {
