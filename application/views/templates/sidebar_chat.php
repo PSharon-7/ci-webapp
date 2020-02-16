@@ -8,17 +8,7 @@
 
 <aside class="main-sidebar">
     <section class="sidebar">
-        <ul class="sidebar-menu" data-widget="tree">
-            <?php if(!empty($userlist)){
-
-            foreach($userlist as $v): ?>
-
-            <li class="selectUser" id="<?=$v['id'];?>" title="<?=$v['name'];?>" card_info="<?=$v['card_info'];?>">
-                <a class="users-list-name" href="#"><?=$v['name'];?></a>
-            </li>
-
-            <?php endforeach;} ?>
-
+        <ul id="sidebar-userlist" class="sidebar-menu" data-widget="tree" >
         </ul>
     </section>
 </aside>

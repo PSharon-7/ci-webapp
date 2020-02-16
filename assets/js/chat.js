@@ -1,3 +1,5 @@
+GetMessageNotification();
+
 var previousActiveId = "";
 var activeId = "";
 
@@ -13,8 +15,8 @@ $(function() {
         sendTxtMessage($('.message').val());
     });
 
-    $('.selectUser').click(function(){
-    	ChatSection(1);
+    $('#sidebar-userlist').delegate('.selectUser', 'click', function(){
+        ChatSection(1);
         var receiver_id = $(this).attr('id');
         var card_info_id = $(this).attr('card_info');
 
@@ -25,10 +27,9 @@ $(function() {
         previousActiveId = activeId;
         activeId = receiver_id;
 
+        if(receiver_id!=''){ GetChatHistory(receiver_id); }
         GetCardInfo(card_info_id);
-
-        GetChatHistory(receiver_id);
-        SetChatlistActive();
+        // SetChatlistActive();
     });
 
     $('.upload_attachmentfile').change(function(){
@@ -89,7 +90,7 @@ ChatSection(0);
 function ScrollDown(){
 	var elmnt = document.getElementById("content");
     var h = elmnt.scrollHeight;
-    $('#content').animate({scrollTop: h}, 1000);
+    $('#content').animate({scrollTop: h}, 0);
 }
 
 window.onload = ScrollDown();
@@ -165,7 +166,22 @@ function GetCardInfo(card_info_id){
     });
 }
 
+function GetMessageNotification() {
+    $.ajax({
+        //dataType : "json",
+        url: 'get-message-notification',
+        success: function(data)
+        {
+            $('#sidebar-userlist').html(data);
+        },
+        error: function (jqXHR, status, err) {
+        // alert('Local error callback');
+        }
+    });
+}
+
 setInterval(function(){ 
 	var receiver_id = $('#ReciverId_txt').val();
 	if(receiver_id!=''){ GetChatHistory(receiver_id); }
+    GetMessageNotification();
 }, 3000);

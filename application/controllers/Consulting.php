@@ -12,36 +12,21 @@ class Consulting extends CI_Controller {
 
     public function index()
     {
-
         $data['strTitle']='';
         $data['strsubTitle']='';
-        $list=[];
 
         if($this->session->userdata['User']['role'] == 'Patient'){
-            $list = $this->UserModel->DoctorsList();
             $data['strTitle']='医生资料';
             $data['chatTitle']='选择一位医生咨询';
         }else{
-            $list = $this->UserModel->ClientsList();
             $data['strTitle']='患者资料';
             $data['chatTitle']='选择一位患者沟通';
         }
-        $userlist=[];
-        foreach($list as $u){
-            $userlist[]=
-            [
-                'id' => $this->OuthModel->Encryptor('encrypt', $u['id']),
-                'name' => $u['name'],
-                'card_info' => $u['card_info'],
-            ];
-        }
-        $data['userlist']=$userlist;
 
-        if($this->session->userdata['User']['role'] == 'Patient')
-        {
+        if($this->session->userdata['User']['role'] == 'Patient'){
             $this->load->view('consulting_patient', $data);
         }
-        else {
+        else{
             $this->load->view('consulting_doctor', $data);
         }
     } 
@@ -64,10 +49,13 @@ class Consulting extends CI_Controller {
         } else{
             $messageTxt = reduce_multiples($post['messageTxt'],' ');
         }   
+
+        $sender_id = $this->session->userdata['User']['id'];
+        $receiver_id = $this->OuthModel->Encryptor('decrypt', $post['receiver_id']);
          
         $data=[
-            'sender_id' => $this->session->userdata['User']['id'],
-            'receiver_id' => $this->OuthModel->Encryptor('decrypt', $post['receiver_id']),
+            'sender_id' => $sender_id,
+            'receiver_id' => $receiver_id,
             'message' =>   $messageTxt,
             'attachment_name' => $attachment_name,
             'file_ext' => $file_ext,
@@ -76,6 +64,8 @@ class Consulting extends CI_Controller {
         ];
 
         $query = $this->ChatModel->SendTxtMessage($this->OuthModel->xss_clean($data)); 
+        $this->ChatModel->UnreadChatMessage($receiver_id); 
+
         $response='';
         if($query == true){
             $response = ['status' => 1 ,'message' => '' ];
@@ -115,6 +105,7 @@ class Consulting extends CI_Controller {
         $receiver_id = $this->OuthModel->Encryptor('decrypt', $this->input->get('receiver_id') );
         $Logged_sender_id = $this->session->userdata['User']['id'];
          
+        $this->ChatModel->ReadChatMessage($receiver_id);
         $history = $this->ChatModel->GetReciverChatHistory($receiver_id);
 
         foreach($history as $chat):
@@ -224,7 +215,6 @@ class Consulting extends CI_Controller {
             $checkin = $data["checkin"];
 
             ?>
-                <!-- <p>你好啊</p> -->
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                         <ul class="timeline" id="timeline">
@@ -234,7 +224,7 @@ class Consulting extends CI_Controller {
                                     echo 
                                     '<li>
                                         <h6 class="font-italic"><a href="'.base_url().'patientmanager/followup/'.$card_info_id.'">随访 - '.$v[0].'</a></h6>
-                                        <p class="my-0 mt-2">复查时间: '.$v[1].'</p><p class="my-0">复查结果: '.$v[2].'</p><p class="my-0">复发情况: '.$v[3].'</p><p class="my-0">治疗方式: '.$v[4].'</p><p class="my-0">药物名称: '.$v[5].'</p><p class="my-0">剂量: '.$v[6].'</p><p class="my-0">疗程: '.$v[7].'</p>
+                                        <p class="my-0 mt-2">复查时间: '.$v[1].'</p><p class="my-0">复查结果: '.$v[2].'</p><p class="my-0">治疗方式: '.$v[3].'</p><p class="my-0">药物名称: '.$v[4].'</p><p class="my-0">剂量: '.$v[5].'</p><p class="my-0">疗程: '.$v[6].'</p>
                                     </li>';
                                 }
                             }
@@ -259,5 +249,41 @@ class Consulting extends CI_Controller {
 
             <?php
         }        
+    }
+
+    public function get_message_notification() {
+        $list=[];
+
+        if($this->session->userdata['User']['role'] == 'Patient'){
+            $list = $this->UserModel->DoctorsList();
+        }else{
+            $list = $this->UserModel->PatientsList();
+        }
+        $userlist=[];
+        foreach($list as $u){
+            $userlist[]=
+            [
+                'id' => $this->OuthModel->Encryptor('encrypt', $u['id']),
+                'name' => $u['name'],
+                'card_info' => $u['card_info'],
+                'message_unread' => $u['message_unread'],
+            ];
+        }
+        $data['userlist']=$userlist;
+
+        ?>
+
+        <?php if(!empty($userlist)){
+            foreach($userlist as $v): ?>
+
+            <li class="selectUser" id="<?=$v['id'];?>" title="<?=$v['name'];?>" card_info="<?=$v['card_info'];?>">
+                <a class="users-list-name" href="#"><?=$v['name'];?> 
+                    <?php if ($v['message_unread'] == 1) { echo '<i class="fa fa-circle notification_icon pl-2"></i>'; }?>
+                </a>
+            </li>
+
+            <?php endforeach;} ?>
+
+        <?php
     }
 }

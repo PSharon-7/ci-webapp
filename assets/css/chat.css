@@ -105,3 +105,10 @@ body {
     }
 }
 
+.notification_icon {
+    color: #00a65a;
+    font-size: 8px;
+    vertical-align: middle;
+    padding-bottom: 3px;
+}
+

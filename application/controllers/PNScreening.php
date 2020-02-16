@@ -5,9 +5,7 @@ class PNScreening extends CI_Controller {
 
     public function index()
     {
-
-        // TODO: add wxid
-        $wxid = "mock1";
+        $wxid = $this->session->userdata['User']['id'];
 
         $id = $name = $gender = $age = $smokehistory = $smoketime = $phonenumber = $resulttime = $pnposition = $pncontent = $pnsize = $doctor = $checktime = $checkhospital = $patientsuggestion = "";
         $address = "湖南省邵阳市";
@@ -142,7 +140,7 @@ class PNScreening extends CI_Controller {
 
     public function id_check()
     {
-        $wxid = "mock1";
+        $wxid = $this->session->userdata['User']['id'];
 
         $id = $_POST['id'];
         $query_id = $this->db->get_where('pnctscreen', array('id' => $id)); 
