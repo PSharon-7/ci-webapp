@@ -98,11 +98,11 @@ window.onload = ScrollDown();
 function DisplayMessage(message){
 	var Sender_Name = $('#Sender_Name').val();
 	
-	var str = '<div class="direct-chat-msg right">';
+	var str = '<div class="direct-chat-msg right text-left">';
 	str+='<div class="direct-chat-info clearfix">';
 	str+='<span class="direct-chat-name pull-right">'+Sender_Name ;
     str+='</span><span class="direct-chat-timestamp pull-left"></span></div>'; //23 Jan 2:05 pm
-	str+='<div class="direct-chat-text">'+message;
+	str+='<div class="direct-chat-text pull-right text-left mx-1">'+message;
 	str+='</div></div>';
 	$('#dumppy').append(str);
 }
