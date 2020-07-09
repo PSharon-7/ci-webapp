@@ -1,4 +1,4 @@
-# WebApp with CodeIgniter
+# CodeIgniter WebApp 
 
 - blog
 - form
